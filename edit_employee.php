@@ -1,5 +1,4 @@
 <?php
-// Include the database connection
 include_once 'dbConnection.php';
 
 // Fetch the existing data of the employee to be edited
@@ -28,18 +27,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['recid'])) {
     $civilstat = $_POST['civilStatus'];
     $contactNumber = $_POST['contactNumber'];
     $salary = $_POST['salary'];
-    $active = isset($_POST['active']) ? 1 : 0; // Check if active checkbox is checked
+    $active = isset($_POST['active']) ? 1 : 0; 
 
-    // Prepare the SQL statement using prepared statements
+    
     $sql = "UPDATE `employeefile` SET `fullname`=?, `address`=?, `birthdate`=?, `age`=?, `gender`=?, `civilstat`=?, `contactnum`=?, `salary`=?, `isactive`=? WHERE `recid`=?";
 
-    // Prepare the statement
+  
     $stmt = mysqli_prepare($conn, $sql);
 
-    // Bind parameters
+   
     mysqli_stmt_bind_param($stmt, "sssisssdii", $fullName, $address, $birthdate, $age, $gender, $civilstat, $contactNumber, $salary, $active, $recid);
 
-    // Execute the statement
+    
     $result = mysqli_stmt_execute($stmt);
 
     if ($result) {
@@ -48,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['recid'])) {
         echo "Failed: " . mysqli_error($conn);
     }
 
-    // Close statement
+   
     mysqli_stmt_close($stmt);
 }
 ?>
@@ -59,33 +58,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['recid'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Employee</title>
+    <title>Employee Management</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 
-<body>
+<body class="bg-success p-2 bg-opacity-25">
 
-    <nav class="navbar navbar-expand-lg bg-success p-2 bg-opacity-75">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Employee Management</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Username
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Logout</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <?php
+    include "navbar.php";
+    ?>
 
     <div class="container-fluid mt-4">
         <div class="mb-4">
