@@ -3,7 +3,7 @@
 $host = 'localhost';
 $username = 'root';
 $password = '';
-$database = 'employeedb';
+$database = 'employeeajaxdb';
 
 // Create a connection (outside any functions)
 $conn = new mysqli($host, $username, $password, $database);
